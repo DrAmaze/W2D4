@@ -1,8 +1,14 @@
+require 'benchmark'
+
 #assume no whitespace or punctuation
 
-str1 = "hello"
-str2 = "olleh"
-str3 = "zebra"
+str1 = (('a'..'l').to_a).join('')
+str2 = str1.chars.shuffle.join('')
+str3 = (['a'] * 12).join('')
+
+puts str1
+puts str2
+puts str3
 
 def first_anagram?(str1, str2)
   perms = str1.chars.permutation.to_a
@@ -12,8 +18,11 @@ def first_anagram?(str1, str2)
   false
 end
 
-p first_anagram?(str1, str2)
-p first_anagram?(str1, str3)
+time = Benchmark.measure {
+  p first_anagram?(str1, str2)
+  p first_anagram?(str1, str3)
+}
+puts time.real
 
 def second_anagram?(str1, str2)
   word1 = str1.chars
@@ -29,15 +38,21 @@ def second_anagram?(str1, str2)
   word2.empty?
 end
 
-p second_anagram?(str1, str2)
-p second_anagram?(str1, str3)
+time = Benchmark.measure {
+  p second_anagram?(str1, str2)
+  p second_anagram?(str1, str3)
+}
+puts time.real
 
 def third_anagram?(str1, str2)
   str1.chars.sort == str2.chars.sort
 end
 
-p third_anagram?(str1, str2)
-p third_anagram?(str1, str3)
+time = Benchmark.measure {
+  p third_anagram?(str1, str2)
+  p third_anagram?(str1, str3)
+}
+puts time.real
 
 def fourth_anagram?(str1, str2)
   word1 = Hash.new(0)
@@ -53,8 +68,12 @@ def fourth_anagram?(str1, str2)
   word1 == word2
 end
 
-p fourth_anagram?(str1, str2)
-p fourth_anagram?(str1, str3)
+time = Benchmark.measure {
+  p fourth_anagram?(str1, str2)
+  p fourth_anagram?(str1, str3)
+}
+puts time.real
+
 
 def bonus_anagram?(str1, str2)
   word = Hash.new(0)
@@ -70,5 +89,9 @@ def bonus_anagram?(str1, str2)
   word.none? { |_, v| v.odd? }
 end
 
-p bonus_anagram?(str1, str2)
-p bonus_anagram?(str1, str3)
+
+time = Benchmark.measure {
+  p bonus_anagram?(str1, str2)
+  p bonus_anagram?(str1, str3)
+}
+puts time.real
